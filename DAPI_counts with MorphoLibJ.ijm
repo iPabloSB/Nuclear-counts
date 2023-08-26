@@ -53,8 +53,7 @@ print(DAPIVolume);
 Table.rename("watershed-lbl-sizeFilt-morpho", file_name);
 
 // showMessageWithCancel("Close the images?","Do you want to close the images generated during the analysis?");
-// closeImages = getBoolean("Do you want to close the images from the analysis?")
-
+// Creates a non-modal dialog box, if user exits or presses no, the macro halts.
 Dialog.createNonBlocking("Info");
 Dialog.addMessage("Do you want to close the images from the analysis?");
 Dialog.show();
@@ -63,3 +62,5 @@ close("watershed");
 close("original");
 close("watershed-lbl-sizeFilt");
 close("watershed-lbl");
+// When all dialog boxes are closed, bring the Log to the forefront, since it has all the data.
+selectWindow("Log");
