@@ -33,7 +33,8 @@ run("Remap Labels");
 run("Z Project...", "projection=[Max Intensity]");
 run("Select All");
 run("Measure");
-print("Final DAPI counts: "+getValue("Max"));
+print("Final DAPI counts:");
+print(getValue("Max"));
 close();
 
 // Calculate the disc total volume by measuring each cell's volume and adding all toghether
@@ -47,14 +48,19 @@ for (i = 0; i < DAPICells; i++) {
 }
 
 // Print the DAPI volume to the log
-print("DAPI total volume: "+DAPIVolume);
+print("DAPI total volume:");
+print(DAPIVolume);
 Table.rename("watershed-lbl-sizeFilt-morpho", file_name);
 
 // showMessageWithCancel("Close the images?","Do you want to close the images generated during the analysis?");
-closeImages = getBoolean("Do you want to close the images from the analysis?")
-if (closeImages == 1) {
+// Creates a non-modal dialog box, if user exits or presses no, the macro halts.
+Dialog.createNonBlocking("Info");
+Dialog.addMessage("Do you want to close the images from the analysis?");
+Dialog.show();
+
 close("watershed");
 close("original");
 close("watershed-lbl-sizeFilt");
 close("watershed-lbl");
-}
+// When all dialog boxes are closed, bring the Log to the forefront, since it has all the data.
+selectWindow("Log");
